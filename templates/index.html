@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Remove Background</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href={{ url_for("static",filename="style.css") }} title="main style" type="text/css" />
+</head>
+<body>
+	<form class="form" action="/removebg" method="post" enctype="multipart/form-data">
+		<div class="input-box">
+		  <label for="image-upload" class="image-label">Choose Image</label>
+		  <input id="image-upload" class="image-input" type="file" name="image">
+		</div>
+		<div id="image-info"></div>
+		<img id="selectedImage" src="#" alt="Selected Image" style="max-width: 300px; max-height: 300px;">
+		<input class="btn remove-btn" type="submit" value="Make Passport">
+    <button class="btn download-btn" type="button" onclick="downloadImage()">Download Image</button>
+	</form>
+	<div id="image-container"></div>
+  <script src={{ url_for("static",filename="main.js") }} type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
