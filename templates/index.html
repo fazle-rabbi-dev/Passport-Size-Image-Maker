@@ -4,19 +4,41 @@
 	<title>Remove Background</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="stylesheet" href={{ url_for("static",filename="style.css") }} title="main style" type="text/css" />
+  <link rel="stylesheet" href={{ url_for("static",filename="utility.css") }} title="main style" type="text/css" />
 </head>
 <body>
-	<form class="form" action="/removebg" method="post" enctype="multipart/form-data">
+	
+	<header class="">
+	  <h1>Passport Size Image Maker</h1>
+	</header>
+	
+	<main>
+    <form class="form" action="/removebg" method="post" enctype="multipart/form-data">
 		<div class="input-box">
 		  <label for="image-upload" class="image-label">Choose Image</label>
 		  <input id="image-upload" class="image-input" type="file" name="image">
+		  <iconify-icon class="upload-icon" icon="material-symbols:cloud-upload"></iconify-icon>
 		</div>
 		<div id="image-info"></div>
-		<img id="selectedImage" src="#" alt="Selected Image" style="max-width: 300px; max-height: 300px;">
-		<input class="btn remove-btn" type="submit" value="Make Passport">
-    <button class="btn download-btn" type="button" onclick="downloadImage()">Download Image</button>
-	</form>
+		<div class="loader-box">
+		  <img class="loader" src={{ url_for("static",filename="/loader.gif") }} alt="Selected Image">
+		</div>
+		<div class="selectedImageBox">
+		  <img id="selectedImage" src="null" alt="Selected Image">
+		</div>
+		<div class="relative">
+		  <input class="btn remove-btn" type="submit" value="Continue">
+		  <iconify-icon class="icon" icon="material-symbols:keyboard-double-arrow-right-rounded"></iconify-icon>
+		</div>
+		<div class="relative">
+      <button class="btn download-btn" type="button" onclick="downloadImage()">Download Image</button>
+		  <iconify-icon class="icon" icon="material-symbols:cloud-download"></iconify-icon>
+		</div>
+    </form>
 	<div id="image-container"></div>
+  </main>
+  
   <script src={{ url_for("static",filename="main.js") }} type="text/javascript" charset="utf-8"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.6/iconify-icon.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,17 @@
+.loader-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: red; */
+  margin-bottom: 20px;
+}
+
+.loader{
+  display: block;
+  margin: 10px auto;
+  width: 50%;
+  height: auto;
+  display: none;
+  /* background: yellow; */
+}
+

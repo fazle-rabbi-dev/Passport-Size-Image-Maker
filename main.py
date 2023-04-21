@@ -4,6 +4,7 @@ from io import BytesIO
 from PIL import Image
 import base64
 import os
+import json
 
 bg_color = (58, 160, 245)
 size = (300,300)
@@ -20,20 +21,27 @@ def remove_bg():
     # get image from request
     # img_file = os.path.join(os.getcwd(), 'static/me.jpeg')
     img_file = request.files['image']
+    print(img_file)
     img = Image.open(BytesIO(img_file.read()))
     buffered = BytesIO()
     img.save(buffered, format="JPEG")
     img_bytes = buffered.getvalue()
     
     # send image to remove.bg API
-    api_key = 'VtgaPC1vsC1EwynXE6apQvmw'
+    api_key = 'mdAeEVx4zBz3sS7RwCaUA96U'
     response = requests.post(
         'https://api.remove.bg/v1.0/removebg',
         files={'image_file': img_bytes},
         data={'size': 'auto'},
         headers={'X-Api-Key': api_key},
     )
-
+    print('\n')
+    print(response.status_code)
+    print('\n')
+    if response.status_code != 200:
+      print(response.content)
+      return jsonify({'success': False})
+    
     # get transparent image
     img_transparent = Image.open(BytesIO(response.content))
 
@@ -51,7 +59,10 @@ def remove_bg():
     img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
     # return image as JSON response
-    return jsonify({'image': img_str})
+    if response.status_code == 200:
+      return jsonify({'success':True,'image': img_str})
+    
+      
     
     # if response.status_code == requests.codes.ok:
     #   with open('no-bg.png', 'wb') as out:

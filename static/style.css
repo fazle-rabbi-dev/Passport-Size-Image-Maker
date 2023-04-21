@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Montserrat:wght@300&family=Open+Sans&family=Patrick+Hand&family=Poppins&family=Raleway&family=Sofia+Sans:wght@300;500&family=Unbounded&display=swap');
+
+/*
+font-family: 'Lato', sans-serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Patrick Hand', cursive;
+font-family: 'Poppins', sans-serif;
+font-family: 'Raleway', sans-serif;
+font-family: 'Sofia Sans', sans-serif;
+font-family: 'Unbounded', cursive;
+*/
+
 *{
   margin: 0;
   padding: 0;
@@ -6,6 +19,16 @@
 
 body{
   background: whitesmoke;
+}
+
+/* Header Style */
+header{
+  /* background: black; */
+  /* padding: 20px; */
+  color: black;
+  margin: 10px 0;
+  text-align: center;
+  font-family: 'Unbounded', cursive;
 }
 
 .form{
@@ -49,6 +72,15 @@ input[type=file] {
   margin-bottom: 10px;
 }
 
+.upload-icon{
+  position: absolute;
+  top:13px;
+  bottom:0;
+  right: 20px;
+  color: white;
+  pointer-events: none;
+}
+
 .btn{
   height: 45px;
   width: 100%;
@@ -58,25 +90,60 @@ input[type=file] {
   margin: 5px 0;
 }
 
+
+
 .remove-btn{
-  background: black;
+  background: #1712ec;
+  border: 2px solid none;
+  color: white;
 }
+
 
 .download-btn{
   background: teal;
+  border: 2px solid none;
+  color: white;
+}
+
+/* Icons In Button */
+.relative{
+  position: relative;
+}
+
+.icon{
+  position: absolute;
+  top:18px;
+  bottom:0;
+  right: 20px;
+  color: white;
+  pointer-events: none;
 }
 
 .disabled{
   background: #6bcac9;
 }
 
+.selectedImageBox{
+  display: none;
+  margin-bottom: 0;
+}
 
-.img{
-  border: 2px solid lightgray;
+.selectedImageBox{
+  /* border: 2px solid lightgray; */
   border-radius: 5px;
-  margin: 0 10px;
+  background: red;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 #selectedImage{
   display: none;
 }
+
+#selectedImage{
+  display: none;
+  width: 100%;
+  border: 2px solid lightgray;
+}
+
