@@ -63,25 +63,30 @@ form.addEventListener("submit", async (event) => {
   // Hide selected image and display loader
   selectedImage.style.display = 'none';
   loader.style.display = 'block'
-  
-  const response = await fetch("/removebg", {
-    method: "POST",
-    body: formData,
-  });
-  const data = await response.json();
-  // alert(JSON.stringify(data,null,3))
-  if(data.image){
+  try {
+    const response = await fetch("/removebg", {
+      method: "POST",
+      body: formData,
+    });
+    const data = await response.json();
+    // alert(JSON.stringify(data,null,3))
+    if(data.image){
+      selectedImage.style.display = 'block';
+      loader.style.display = 'none'
+      var img = document.getElementById("selectedImage");
+      img.src = "data:image/jpeg;base64," + data.image;
+      img.id = "myImage";
+    }
+    // When success = false
+    else{
+      selectedImage.style.display = 'block';
+      loader.style.display = 'none'
+      showToast('error','Error','Something went wrong.May be your api free request limitation exceeded! Try with different api');
+    }
+  } catch (e) {
+    showToast('error','','Internet connection error!')
     selectedImage.style.display = 'block';
     loader.style.display = 'none'
-    var img = document.getElementById("selectedImage");
-    img.src = "data:image/jpeg;base64," + data.image;
-    img.id = "myImage";
-  }
-  // When success = false
-  else{
-    selectedImage.style.display = 'block';
-    loader.style.display = 'none'
-    showToast('error','Error','Something went wrong.May be your api free request limitation exceeded! Try with different api');
   }
 });
 
