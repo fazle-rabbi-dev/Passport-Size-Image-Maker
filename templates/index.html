@@ -10,10 +10,12 @@
 <body>
 	
 	<div class="toast-box">
-	  <iconify-icon class="close-icon" icon="mdi:close-octagon"></iconify-icon>
-	  <h2>Alert!</h2>
+	  <!--<iconify-icon class="close-icon" icon="mdi:close-octagon"></iconify-icon>-->
+	  <iconify-icon class="close-icon" icon="ic:round-close"></iconify-icon>
+	  <!--<h2>Alert!</h2>-->
 	  <p>
-	    ut culpa aliquip aute cupidatat irure consequat minim ea officia
+	    <iconify-icon class="toast-type-icon" icon="mdi:tick-circle"></iconify-icon>
+	    <span>ut culpa aliquip aute cupidatat irure consequat minim ea officia</span>
 	  </p>
 	</div>
 	
@@ -37,16 +39,16 @@
 		  <iconify-icon class="upload-icon" icon="material-symbols:cloud-upload"></iconify-icon>
 		</div>
 		<div class="info">
-		  Make sure you have your own api key.Because there are limitation of calling <a class="" href="https://www.remove.bg/api" target="__blank">remove.bg</a> api.With free plan you can perform like 50 requests!
+		  Make sure you have your own api key.Because there are limitation of calling <a class="" href="https://www.remove.bg/api" target="__blank">remove.bg</a> api.With free plan you can perform like 50 requests per month!
 		</div>
 		<div class="">
 		  <label class="api-label">Paste Api Key From <a class="" href="https://www.remove.bg/api" target="__blank">remove.bg</a></label>
 		  <input class="api-input" type="text" name="api_key" id="api_key" value="" />
 		</div>
-		<div id="image-info"></div>
 		<div class="loader-box">
 		  <img class="loader" src={{ url_for("static",filename="/loader.gif") }} alt="Selected Image">
 		</div>
+		<div id="image-info"></div>
 		<div class="selectedImageBox">
 		  <img id="selectedImage" src="null" alt="Selected Image">
 		</div>
@@ -65,6 +67,10 @@
     </form>
 	<div id="image-container"></div>
   </main>
+  
+  <footer class="">
+    <p>Made With &hearts; By <a class="" href="https://bio-link.github.io/im-fazle-rabbi/">Fazle Rabbi</a> With The Help Of <a class="" href="https://chat.openai.com/chat">ChatGPT</a></p>
+  </footer>
   
   <script src={{ url_for("static",filename="main.js") }} type="text/javascript" charset="utf-8"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.6/iconify-icon.min.js"></script>
