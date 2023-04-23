@@ -15,20 +15,43 @@ font-family: 'Unbounded', cursive;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 body{
   background: whitesmoke;
+  font-family: 'Lato', sans-serif;
+}
+
+/* Nav Style */
+nav{
+  background: black;
+  padding: 20px;
+  color: white;
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .github{
+  font-size: 1.4rem;
 }
 
 /* Header Style */
 header{
-  /* background: black; */
-  /* padding: 20px; */
-  color: black;
-  margin: 10px 0;
+  margin: 15px;
   text-align: center;
-  font-family: 'Unbounded', cursive;
+  display: flex;
+}
+
+header h1{
+  margin-bottom: 10px;
+  color: gray;
+}
+
+header p{
+  font-family: 'Poppins', sans-serif;
 }
 
 .form{
@@ -53,7 +76,7 @@ input[type=file] {
 .image-label {
   display: block;
   padding: 10px 20px;
-  background-color: teal;
+  background-color: #ff0093;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
@@ -81,27 +104,54 @@ input[type=file] {
   pointer-events: none;
 }
 
+
+/*Api Key Input Box Style*/
+.api-label{
+  
+}
+
+.api-input{
+  display: block;
+  width: 100%;
+  border: 1px solid lightgray;
+  outline:0;
+  height: 35px;
+  border-radius:5px;
+  padding: 0 5px;
+  margin-top: 7px;
+}
+
 .btn{
-  height: 45px;
+  height: 50px;
   width: 100%;
   border-radius: 5px;
   color: white;
   border: 0;
   margin: 5px 0;
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 1px;
 }
 
 
-
 .remove-btn{
-  background: #1712ec;
+  background: #f2088b;
   border: 2px solid none;
   color: white;
 }
 
 
 .download-btn{
-  background: teal;
-  border: 2px solid none;
+  background: none;
+  border: 1px solid #f2088b;
+  color: black;
+}
+
+.download-btn:active{
+  background: #f2088b;
+  color: white;
+}
+
+.download-btn:active ~ .icon-download{
   color: white;
 }
 
@@ -112,11 +162,16 @@ input[type=file] {
 
 .icon{
   position: absolute;
-  top:18px;
+  top:22px;
   bottom:0;
   right: 20px;
   color: white;
   pointer-events: none;
+  font-size: 1.2rem;
+}
+
+.icon-download{
+  color: black;
 }
 
 .disabled{

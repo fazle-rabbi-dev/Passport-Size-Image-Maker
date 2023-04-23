@@ -29,6 +29,8 @@ def remove_bg():
     
     # send image to remove.bg API
     api_key = 'mdAeEVx4zBz3sS7RwCaUA96U'
+    if request.form['api_key']:
+      api_key = request.form['api_key']
     response = requests.post(
         'https://api.remove.bg/v1.0/removebg',
         files={'image_file': img_bytes},

@@ -3,21 +3,37 @@
 <head>
 	<title>Remove Background</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="Create professional passport size photos for your documents in seconds with this web app. Easily upload your photo, automatically remove the background and add a solid color background. Download and use it for all your professional needs hassle-free!">
   <link rel="stylesheet" href={{ url_for("static",filename="style.css") }} title="main style" type="text/css" />
   <link rel="stylesheet" href={{ url_for("static",filename="utility.css") }} title="main style" type="text/css" />
 </head>
 <body>
 	
-	<header class="">
-	  <h1>Passport Size Image Maker</h1>
-	</header>
+	<nav class="">
+	  <p>Passport Size Photo Maker</p>
+	  <a class="" href="#"><iconify-icon class="github" icon="carbon:logo-github" style="color: white;"></iconify-icon></a>
+	</nav>
 	
+	<header class="">
+	  <h1>Generate Passport Size Photo Online With A Moment!</h1>
+	 <p>
+	    "Say goodbye to the hassle of creating passport size images for your professional documents. This web app uses cutting-edge technology to remove backgrounds and add solid background colors, so you can easily create perfect images in seconds!"
+	  </p>
+	</header>
+	 
 	<main>
     <form class="form" action="/removebg" method="post" enctype="multipart/form-data">
 		<div class="input-box">
 		  <label for="image-upload" class="image-label">Choose Image</label>
 		  <input id="image-upload" class="image-input" type="file" name="image">
 		  <iconify-icon class="upload-icon" icon="material-symbols:cloud-upload"></iconify-icon>
+		</div>
+		<div class="info">
+		  Make sure you have your own api key.Because there are limitation of calling <a class="" href="https://www.remove.bg/api" target="__blank">remove.bg</a> api.With free plan you can perform like 50 requests!
+		</div>
+		<div class="">
+		  <label class="api-label">Paste Api Key From <a class="" href="https://www.remove.bg/api" target="__blank">remove.bg</a></label>
+		  <input class="api-input" type="text" name="api_key" id="api_key" value="" />
 		</div>
 		<div id="image-info"></div>
 		<div class="loader-box">
@@ -26,13 +42,17 @@
 		<div class="selectedImageBox">
 		  <img id="selectedImage" src="null" alt="Selected Image">
 		</div>
+		<div class="error">
+		  
+		</div>
+		<!--Buttons-->
 		<div class="relative">
 		  <input class="btn remove-btn" type="submit" value="Continue">
 		  <iconify-icon class="icon" icon="material-symbols:keyboard-double-arrow-right-rounded"></iconify-icon>
 		</div>
 		<div class="relative">
       <button class="btn download-btn" type="button" onclick="downloadImage()">Download Image</button>
-		  <iconify-icon class="icon" icon="material-symbols:cloud-download"></iconify-icon>
+		  <iconify-icon class="icon icon-download" icon="material-symbols:cloud-download"></iconify-icon>
 		</div>
     </form>
 	<div id="image-container"></div>
