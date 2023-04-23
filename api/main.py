@@ -3,8 +3,6 @@ import requests
 from io import BytesIO
 from PIL import Image
 import base64
-import os
-import json
 
 bg_color = (58, 160, 245)
 size = (300,300)
@@ -19,7 +17,6 @@ def home():
 @app.route('/removebg', methods=['POST'])
 def remove_bg():
     # get image from request
-    # img_file = os.path.join(os.getcwd(), 'static/me.jpeg')
     img_file = request.files['image']
     print(img_file)
     img = Image.open(BytesIO(img_file.read()))
@@ -28,7 +25,7 @@ def remove_bg():
     img_bytes = buffered.getvalue()
     
     # send image to remove.bg API
-    api_key = 'mdAeEVx4zBz3sS7RwCaUA96U'
+    api_key = 'LuT4n9QngxmNskcj5WXydu4F'
     if request.form['api_key']:
       api_key = request.form['api_key']
     response = requests.post(
@@ -48,7 +45,6 @@ def remove_bg():
     img_transparent = Image.open(BytesIO(response.content))
 
     # create new solid background
-    # bg_color = (112,183,255)  # white background
     img_with_bg = Image.new("RGB", img_transparent.size, bg_color)
     img_with_bg.paste(img_transparent, mask=img_transparent)
 
@@ -63,13 +59,6 @@ def remove_bg():
     # return image as JSON response
     if response.status_code == 200:
       return jsonify({'success':True,'image': img_str})
-    
-      
-    
-    # if response.status_code == requests.codes.ok:
-    #   with open('no-bg.png', 'wb') as out:
-    #     out.write(response.content)
-    # return jsonify({'message':'ok'})
 
 if __name__ == '__main__':
     app.run(debug=True)

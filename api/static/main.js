@@ -2,6 +2,8 @@ const loader = document.querySelector(".loader");
 const selectedImage = document.getElementById("selectedImage");
 const selectedImageBox = document.querySelector(".selectedImageBox");
 const toastBox = document.querySelector(".toast-box");
+const input = document.getElementById("image-upload");
+const infoDiv = document.getElementById("image-info");
 // const toastName = document.querySelector(".toast-box > h2");
 const toastMessage = document.querySelector(".toast-box p span");
 const toastTypeIcon = document.querySelector(".toast-type-icon");
@@ -9,6 +11,8 @@ const closeIcon = document.querySelector(".close-icon");
 const tickSymbol = 'mdi:tick-circle'
 const exclamationSymbol = 'bi:exclamation-circle-fill'
 const apiInput = document.querySelector(".api-input");
+
+let is_ready_for_generate = true;
 
 // Get api from localStorage
 if(localStorage.getItem('api_key')){
@@ -24,12 +28,14 @@ const showToast = (type,name,msg,duration=8000) => {
     toastMessage.innerHTML = msg
     if(type == 'error'){
       toastTypeIcon.setAttribute('icon',exclamationSymbol)
-      toastBox.style.borderBottom = '4px solid #f2088b;'
+      toastBox.style.borderBottom = '4px solid #f2088b'
+      toastTypeIcon.classList.remove(`toast-type-icon-success`)
       toastTypeIcon.classList.add(`toast-type-icon-error`)
     }
     else if(type == 'success'){
       toastTypeIcon.setAttribute('icon',tickSymbol)
-      toastBox.style.borderBottom = '4px solid #0bc394;'
+      toastBox.style.borderBottom = '4px solid #00c94f'
+      toastTypeIcon.classList.remove(`toast-type-icon-error`)
       toastTypeIcon.classList.add(`toast-type-icon-success`)
     }
     // display toast
@@ -47,6 +53,12 @@ closeIcon.addEventListener("click", function(el){
 const form = document.querySelector("form");
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
+  if(!is_ready_for_generate){
+    showToast('error','','Please choose an image first!')
+    selectedImage.style.display = 'none'
+    selectedImage.src = ''
+    return;
+  }
   // If api_key found then store it in the localStorage
   if(apiInput.value != '' && apiInput.value.length != 24){
     showToast('error','','Invalid api! Using default api');
@@ -71,6 +83,7 @@ form.addEventListener("submit", async (event) => {
     const data = await response.json();
     // alert(JSON.stringify(data,null,3))
     if(data.image){
+      is_ready_for_generate = false
       selectedImage.style.display = 'block';
       loader.style.display = 'none'
       var img = document.getElementById("selectedImage");
@@ -81,7 +94,7 @@ form.addEventListener("submit", async (event) => {
     else{
       selectedImage.style.display = 'block';
       loader.style.display = 'none'
-      showToast('error','Error','Something went wrong.May be your api free request limitation exceeded! Try with different api');
+      showToast('error','Error','Oops!Something went wrong.May be your api free request limitation exceeded! Try with different api');
     }
   } catch (e) {
     showToast('error','','Internet connection error!')
@@ -90,12 +103,17 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
+// Download Image
 function downloadImage() {
   if(selectedImage.src.includes('null')){
     showToast('error','',"Please choose an image and click on continue!");
     return;
   }
   var img = document.getElementById("myImage");
+  if(!img){
+    showToast('error','','Oops!Image not yet ready for download!')
+    return;
+  }
   var url = img.src.replace(
     /^data:image\/[^;]/,
     "data:application/octet-stream"
@@ -106,34 +124,43 @@ function downloadImage() {
   link.setAttribute("href", url);
   link.setAttribute("download", filename);
   link.style.display = "none";
-
   document.body.appendChild(link);
   link.click();
 
   document.body.removeChild(link);
 }
 
-const input = document.getElementById("image-upload");
-const infoDiv = document.getElementById("image-info");
-
+// Display selected image and image info when choose an image
 input.addEventListener("change", function () {
-
+  selectedImage.style.display = 'none'
+  selectedImage.src = ''
+  infoDiv.textContent = ''
   const file = input.files[0];
   const reader = new FileReader();
   
   reader.addEventListener("load", function () {
+    const supported_format = ['image/jpg','image/jpeg']
+    if(supported_format.includes(file.type)){
+      showToast('success','','Image choosen successful');
+      is_ready_for_generate = true
+    }
+    else{
+      showToast("error","","Unsupported image format!Supported image format are (.jpg & .jpeg)")
+      return;
+    }
+    
     const img = new Image();
     img.src = reader.result;
-    
     img.addEventListener("load", function () {
       const info = `
         Name: ${file.name} ,
         Type: ${file.type} ,
         Size: ${file.size} bytes ,
         Dimensions: ${img.width} x ${img.height}`;
-      displaySelectedImage(img.src);
-      selectedImageBox.style.display = 'block'
       infoDiv.textContent = info;
+      displaySelectedImage(file);
+      // selectedImage.src = URL.createObjectURL(file);
+      // selectedImageBox.style.display = 'block'
     });
   });
 
@@ -141,9 +168,8 @@ input.addEventListener("change", function () {
 });
 
 // Display selected Image
-function displaySelectedImage(src) {
+function displaySelectedImage(file) {
   var fileInput = document.getElementById("image-upload");
-  var selectedImage = document.getElementById("selectedImage");
   selectedImage.style.display = "block";
   selectedImage.src = URL.createObjectURL(fileInput.files[0]);
 }
