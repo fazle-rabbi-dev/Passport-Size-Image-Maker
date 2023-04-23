@@ -1,6 +1,6 @@
 # Passport-Size-Image-Maker
 
-<div align="center">
+<div align="">
 "Say goodbye to the hassle of creating passport size images for your professional documents. This web app uses cutting-edge technology to remove backgrounds and add solid background colors, so you can easily create perfect images in seconds!"
 </div>
 
