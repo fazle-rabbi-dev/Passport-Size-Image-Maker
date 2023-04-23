@@ -202,3 +202,29 @@ input[type=file] {
   border: 2px solid lightgray;
 }
 
+
+/*Toast Styl*/
+.toast-box{
+  background: #ededed;
+  color: black;
+  /* margin: 0 10px; */
+  padding: 15px;
+  position: fixed;
+  top:0;
+  left:100vw;
+  /* left:0; */
+  right:0;
+  /* height: 100px; */
+  border-bottom: 4px solid #f2088b;
+  box-shadow: 1px 0 15px rgba(0,0,0,.15);
+  transition: .1s ease-in;
+  z-index: 999;
+}
+
+.close-icon{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 1.8rem;
+}
+

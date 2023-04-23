@@ -1,6 +1,7 @@
 const loader = document.querySelector(".loader");
 const selectedImage = document.getElementById("selectedImage");
 const selectedImageBox = document.querySelector(".selectedImageBox");
+const toastBox = document.querySelector(".toast-box");
 
 
 // Toggle element ==> (show/hide)
@@ -25,22 +26,19 @@ form.addEventListener("submit", async (event) => {
     body: formData,
   });
   const data = await response.json();
-  alert(JSON.stringify(data,null,3))
+  // alert(JSON.stringify(data,null,3))
   if(data.image){
     selectedImage.style.display = 'block';
     loader.style.display = 'none'
+    var img = document.getElementById("selectedImage");
+    img.src = "data:image/jpeg;base64," + data.image;
+    img.id = "myImage";
   }
-  
-  //const img = new Image();
-  //img.width="100%";
-  //img.height="100%";
-  //img.style.width = '100%';
-  var img = document.getElementById("selectedImage");
-  img.src = "data:image/jpeg;base64," + data.image;
-  img.id = "myImage";
-  //document.querySelector('#image-container').appendChild(img);
-
-  //document.querySelector('#image-container').innerHTML = JSON.stringify(data);
+  else{
+    selectedImage.style.display = 'block';
+    loader.style.display = 'none'
+    toastBox.style.left = 0
+  }
 });
 
 function downloadImage() {
